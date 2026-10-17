@@ -1,0 +1,67 @@
+@host = http://localhost:5080
+@tenant = DEMO
+@email = admin@demo.local
+@password = Admin@123
+
+# =====================================================================
+# ملف اختبار الـ API — يعمل مباشرة من داخل Visual Studio 2026
+# اضغط على سهم "Send Request" الذي يظهر فوق كل طلب.
+# =====================================================================
+
+### 1) فحص الاتصال بقاعدة البيانات
+GET {{host}}/api/v1/system/health
+Accept: application/json
+
+### 2) عرض كل الجداول الحقيقية في قاعدة البيانات
+GET {{host}}/api/v1/system/tables
+Accept: application/json
+
+### 3) الكيانات المسجّلة في الـ Metadata Registry
+GET {{host}}/api/v1/system/entities
+Accept: application/json
+
+### 4) سجل الأفعال (Action Registry)
+GET {{host}}/api/v1/system/actions
+Accept: application/json
+
+### 5) تسجيل الدخول (يحفظ التوكن تلقائياً في المتغير login)
+# @name login
+POST {{host}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "tenantCode": "{{tenant}}",
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### 6) قراءة الفروع عبر الـ Generic Data API
+GET {{host}}/api/v1/generic/core.branch?limit=50
+Authorization: Bearer {{login.response.body.$.token}}
+Accept: application/json
+
+### 7) قراءة المستخدمين
+GET {{host}}/api/v1/generic/core.user?limit=50
+Authorization: Bearer {{login.response.body.$.token}}
+Accept: application/json
+
+### 8) تحديث فرع (Optimistic Concurrency)
+# غيّر version إلى القيمة الحالية من الطلب رقم 6، ثم أعد الإرسال.
+PUT {{host}}/api/v1/generic/core.branch
+Authorization: Bearer {{login.response.body.$.token}}
+Content-Type: application/json
+
+{
+  "id": "44444444-4444-4444-4444-444444444444",
+  "version": 1,
+  "name": "الفرع الرئيسي - القاهرة",
+  "is_active": true
+}
+
+### 9) اختبار رفض الصلاحيات (Default-Deny) — يجب أن يرجع 401
+GET {{host}}/api/v1/generic/core.branch
+Accept: application/json
+
+### 10) مواصفة OpenAPI
+GET {{host}}/openapi/v1.json
+Accept: application/json

@@ -1,0 +1,49 @@
+# ERP NextGen — بيئة التطوير المحلية
+# ---------------------------------------------------------------------
+# التشغيل:   docker compose up -d
+# الإيقاف:   docker compose down
+# الحذف الكامل (بما فيه البيانات): docker compose down -v
+#
+# ملاحظة: أي إصدار PostgreSQL >= 15 يعمل. استخدمنا 17 لأنه الأكثر
+# استقراراً وتوافراً في الصور الرسمية.
+# ---------------------------------------------------------------------
+services:
+  postgres:
+    image: postgres:17
+    container_name: erp-nextgen-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: erp
+      # لضمان ترتيب أبجدي ثابت في النتائج
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - erp_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d erp"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  # واجهة إدارة قاعدة البيانات (اختياري لكن مفيد جداً لمشاهدة الجداول)
+  # افتح: http://localhost:8080
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: erp-nextgen-pgadmin
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@demo.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "8080:80"
+
+volumes:
+  erp_pgdata:

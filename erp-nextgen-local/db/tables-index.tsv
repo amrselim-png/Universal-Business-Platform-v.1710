@@ -1,0 +1,11 @@
+core.tenants	المنشآت المشتركة (Tenants)
+core.branches	فروع المنشأة (Branches)
+core.users	المستخدمون والموظفون (Users)
+core.actions	سجل الأفعال المركزي (Action Registry)
+core.permissions	مصفوفة الصلاحيات (Role Permissions)
+core.audit_log	سجل التدقيق الشامل (Monthly Partitioned Audit)
+core.outbox_events	أحداث الـ Outbox للمعامَلات العابرة للموديولات
+inventory.items	الأصناف والمخزون الحي (Master Items)
+inventory.stock_movements	حركات المخزون التفصيلية (Stock Ledger)
+sales.sales_invoices	فواتير المبيعات ونقاط البيع (Sales Invoices)
+accounting.journal_entries	قيود اليومية العامة (General Ledger Entries)

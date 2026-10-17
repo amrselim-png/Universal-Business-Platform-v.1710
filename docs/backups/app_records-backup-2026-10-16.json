@@ -1,0 +1,77 @@
+[
+ {
+  "tenant_id": "tenant-eg-001",
+  "doc_key": "erp_warehouses",
+  "record_id": "wh-alex-store",
+  "payload": {
+   "id": "wh-alex-store",
+   "code": "WH-ALX",
+   "name": "مخزن فرع الإسكندرية15",
+   "nameEn": "Alexandria Retail Warehouse",
+   "branchId": "branch-alex",
+   "location": "طريق 14 مايو - سموحة",
+   "tenantId": "tenant-eg-001",
+   "updated_at": "2026-10-15T17:53:24.789Z"
+  },
+  "updated_at": "2026-10-15T17:53:46.404Z",
+  "deleted_at": null,
+  "version": 2
+ },
+ {
+  "tenant_id": "tenant-eg-003",
+  "doc_key": "erp_tenants",
+  "record_id": "tenant-eg-003",
+  "payload": {
+   "id": "tenant-eg-003",
+   "code": "BARBIE",
+   "name": "باربى كلينك15",
+   "plan": "Enterprise",
+   "nameEn": "Al-Amal Trading & Medical Group",
+   "taxRate": 0.14,
+   "currency": "EGP",
+   "updated_at": "2026-10-15T17:55:32.289Z",
+   "activeModules": [
+    "identity",
+    "parties",
+    "appointments",
+    "reception_ops",
+    "staff_management",
+    "payment_methods",
+    "pos_sales",
+    "inventory",
+    "accounting",
+    "audit_logs",
+    "shift_reports",
+    "integrations_neon"
+   ],
+   "currencySymbol": "ج.م",
+   "customerStartNumber": 1001,
+   "supplierStartNumber": 501,
+   "customerNumberingMode": "per_company",
+   "supplierNumberingMode": "per_company",
+   "defaultPosCollectionOnly": false
+  },
+  "updated_at": "2026-10-15T17:55:53.903Z",
+  "deleted_at": null,
+  "version": 2
+ },
+ {
+  "tenant_id": "tenant-eg-003",
+  "doc_key": "erp_branches",
+  "record_id": "branch-9513",
+  "payload": {
+   "id": "branch-9513",
+   "city": "القاهرة",
+   "code": "BR-513",
+   "name": "فرع روكسي",
+   "phone": "",
+   "isMain": false,
+   "nameEn": "فرع روكسي",
+   "tenantId": "tenant-eg-003",
+   "isArchived": false
+  },
+  "updated_at": "2026-10-15T17:56:21.150Z",
+  "deleted_at": null,
+  "version": 1
+ }
+]
